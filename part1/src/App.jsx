@@ -9,17 +9,23 @@ const App = () => {
   const [good, setGood] = useState(0);
   const [neutral, setNeutral] = useState(0);
   const [bad, setBad] = useState(0);
+  const total = good + neutral + bad;
+  const average = total === 0 ? 0 : (good * 1 + neutral * 0 + bad * -1) / total;
+  const percentage = total === 0 ? 0 : (good / total) * 100;
 
   const handleGoodReviews = () => {
-    setGood(good + 1);
+    const newGood = good + 1;
+    setGood(newGood);
   };
 
   const handleNeutralReviews = () => {
-    setNeutral(neutral + 1);
+    const newNeutral = neutral + 1;
+    setNeutral(newNeutral);
   };
 
   const handleBadReviews = () => {
-    setBad(bad + 1);
+    const newBad = bad + 1;
+    setBad(newBad);
   };
 
   return (
@@ -32,6 +38,9 @@ const App = () => {
       <p>good {good}</p>
       <p>neutral {neutral}</p>
       <p>bad {bad}</p>
+      <p>total {total}</p>
+      <p>average {average}</p>
+      <p>percentage {percentage}%</p>
     </div>
   );
 };
