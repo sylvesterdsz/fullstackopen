@@ -19,6 +19,10 @@ const App = () => {
   const [selected, setSelected] = useState(0);
   const [votes, setVotes] = useState({});
 
+  const [maxKey, maxValue] = Object.entries(votes).length
+    ? Object.entries(votes).reduce((a, b) => (b[1] >= a[1] ? b : a))
+    : [null, 0];
+
   function getRandomInt(min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
   }
@@ -38,12 +42,22 @@ const App = () => {
 
   return (
     <div>
+      <h1>Anecdote of the day</h1>
       <p>{anecdotes[selected]}</p>
       <p>
         has {votes[selected] ?? 0} {votes[selected] === 1 ? "vote" : "votes"}
       </p>
       <Button onClick={handleVotes} text="vote" />
       <Button onClick={nextAnecdote} text="next anecdote" />
+      {maxKey !== null && (
+        <>
+          <h1>Anecdote with most votes</h1>
+          <p>{anecdotes[maxKey]}</p>
+          <p>
+            has {maxValue} {maxValue === 1 ? "vote" : "votes"}
+          </p>
+        </>
+      )}
     </div>
   );
 };
