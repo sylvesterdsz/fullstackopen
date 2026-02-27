@@ -1,5 +1,9 @@
 import { useState } from "react";
 
+const Button = (props) => {
+  return <button onClick={props.onClick}>{props.text}</button>;
+};
+
 const App = () => {
   const anecdotes = [
     "If it hurts, do it more often.",
@@ -13,6 +17,7 @@ const App = () => {
   ];
 
   const [selected, setSelected] = useState(0);
+  const [votes, setVotes] = useState({});
 
   function getRandomInt(min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
@@ -23,10 +28,22 @@ const App = () => {
     setSelected(random);
   };
 
+  const handleVotes = () => {
+    const newVotes = {
+      ...votes,
+      [selected]: (votes[selected] ?? 0) + 1,
+    };
+    setVotes(newVotes);
+  };
+
   return (
     <div>
       <p>{anecdotes[selected]}</p>
-      <button onClick={nextAnecdote}>next anecdote</button>
+      <p>
+        has {votes[selected] ?? 0} {votes[selected] === 1 ? "vote" : "votes"}
+      </p>
+      <Button onClick={handleVotes} text="vote" />
+      <Button onClick={nextAnecdote} text="next anecdote" />
     </div>
   );
 };
