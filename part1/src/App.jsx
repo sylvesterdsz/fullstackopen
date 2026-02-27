@@ -3,19 +3,17 @@ import { useState } from "react";
 const StatisticLine = (props) => {
   if (props.text === "percentage") {
     return (
-      <div>
-        <p>
-          {props.text} {props.value}%
-        </p>
-      </div>
+      <tr>
+        <td>{props.text}</td>
+        <td>{props.value}%</td>
+      </tr>
     );
   }
   return (
-    <div>
-      <p>
-        {props.text} {props.value}
-      </p>
-    </div>
+    <tr>
+      <td>{props.text}</td>
+      <td>{props.value}</td>
+    </tr>
   );
 };
 
@@ -31,12 +29,16 @@ const Statistics = (props) => {
   return (
     <div>
       <h1>statistics</h1>
-      <StatisticLine text={"good"} value={props.good} />
-      <StatisticLine text={"neutral"} value={props.neutral} />
-      <StatisticLine text={"bad"} value={props.bad} />
-      <StatisticLine text={"total"} value={props.total} />
-      <StatisticLine text={"average"} value={props.average} />
-      <StatisticLine text={"percentage"} value={props.percentage} />
+      <table>
+        <tbody>
+          <StatisticLine text={"good"} value={props.good} />
+          <StatisticLine text={"neutral"} value={props.neutral} />
+          <StatisticLine text={"bad"} value={props.bad} />
+          <StatisticLine text={"total"} value={props.total} />
+          <StatisticLine text={"average"} value={props.average} />
+          <StatisticLine text={"percentage"} value={props.percentage} />
+        </tbody>
+      </table>
     </div>
   );
 };
