@@ -1,5 +1,15 @@
 import { useState } from "react";
 
+const Statistics = (props) => {
+  return (
+    <div>
+      <p>total {props.total}</p>
+      <p>average {props.average}</p>
+      <p>percentage {props.percentage}%</p>
+    </div>
+  );
+};
+
 const Button = (props) => {
   return <button onClick={props.onClick}>{props.text}</button>;
 };
@@ -38,9 +48,7 @@ const App = () => {
       <p>good {good}</p>
       <p>neutral {neutral}</p>
       <p>bad {bad}</p>
-      <p>total {total}</p>
-      <p>average {average}</p>
-      <p>percentage {percentage}%</p>
+      <Statistics total={total} average={average} percentage={percentage} />
     </div>
   );
 };
