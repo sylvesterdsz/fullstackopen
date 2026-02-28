@@ -50,6 +50,8 @@ const App = () => {
     <div>
       <h1>Web development curriculum</h1>
       {courses.map((course) => (
+        //i have already separated the course component and made it a separate module
+        //adding this comment to commit for exercise 2.5
         <Course key={course.id} course={course} />
       ))}
     </div>
