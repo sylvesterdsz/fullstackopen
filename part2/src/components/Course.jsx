@@ -17,6 +17,7 @@ const Part = ({ part }) => (
 const Total = (props) => <h3>total of {props.total} exercises</h3>;
 
 const Course = ({ course }) => {
+  //already used reduce in exercise 2.2 - adding this comment to put a commit for exercise 2.3
   const calculatedTotal = course.parts
     .map((p) => p.exercises)
     .reduce((sum, exercises) => sum + exercises, 0);
