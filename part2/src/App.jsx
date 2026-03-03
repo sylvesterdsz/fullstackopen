@@ -6,6 +6,15 @@ const App = () => {
 
   const addNumber = (event) => {
     event.preventDefault();
+
+    // Check for duplicate
+    const nameExists = persons.some((person) => person.name === newName);
+
+    if (nameExists) {
+      alert(`${newName} is already added to phonebook`);
+      return; // stop execution
+    }
+
     const personObj = {
       name: newName,
     };
