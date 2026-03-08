@@ -1,4 +1,5 @@
 import CountryDetails from "./CountryDetails";
+import WeatherDetails from "./WeatherDetails";
 
 const Results = ({
   countries,
@@ -36,7 +37,15 @@ const Results = ({
     );
   }
   if (filteredCountries.length === 1) {
-    return <CountryDetails country={filteredCountries[0]} />;
+    return (
+      <div>
+        <CountryDetails country={filteredCountries[0]} />
+        <WeatherDetails
+          lat={filteredCountries[0].latlng[0]}
+          lon={filteredCountries[0].latlng[1]}
+        />
+      </div>
+    );
   }
 };
 
