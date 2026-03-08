@@ -26,9 +26,24 @@
       "number": "0468750275"
     },
     {
-      "id": 6,
+      "id": "6",
       "name": "Vinita Dsouza",
       "number": "0450318475"
+    },
+    {
+      "id": "7",
+      "name": "Noah Dsouza",
+      "number": "11112222"
+    },
+    {
+      "id": "8",
+      "name": "Asher Dsouza",
+      "number": "22223333"
+    },
+    {
+      "id": 9,
+      "name": "Myah Dsouza",
+      "number": "44445555"
     }
   ],
   "$schema": "./node_modules/json-server/schema.json"
