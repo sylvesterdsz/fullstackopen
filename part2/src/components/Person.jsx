@@ -1,9 +1,10 @@
-const Person = (props) => {
+const Person = ({ filteredPersons, deletePerson }) => {
   return (
     <ul>
-      {props.filteredPersons.map((p) => (
+      {filteredPersons.map((p) => (
         <li key={p.id}>
           {p.name} {p.number}
+          <button onClick={() => deletePerson(p.id)}>delete</button>
         </li>
       ))}
     </ul>

@@ -35,7 +35,6 @@ const App = () => {
     const personObj = {
       name: newName,
       number: newNumber,
-      id: persons.length + 1,
     };
     personService.createPerson(personObj).then((createdPerson) => {
       setPersons(persons.concat(createdPerson));
@@ -58,6 +57,15 @@ const App = () => {
     person.name.toLowerCase().includes(searchName.toLowerCase()),
   );
 
+  const deletePerson = (id) => {
+    const person = persons.find((p) => p.id === id);
+    if (window.confirm(`Delete ${person.name}?`)) {
+      personService.deletePerson(id).then(() => {
+        setPersons(persons.filter((person) => person.id !== id));
+      });
+    }
+  };
+
   return (
     <div>
       <h2>Phonebook</h2>
@@ -71,7 +79,7 @@ const App = () => {
         onSubmit={addNameNumber}
       />
       <h2>Numbers</h2>
-      <Person filteredPersons={filteredPersons} />
+      <Person filteredPersons={filteredPersons} deletePerson={deletePerson} />
     </div>
   );
 };
