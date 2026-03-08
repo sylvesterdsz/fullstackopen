@@ -20,13 +20,34 @@ const App = () => {
   const addNameNumber = (event) => {
     event.preventDefault();
 
-    // Check for duplicate
-    const nameExists = persons.some((person) => person.name === newName);
+    const existingPerson = persons.find((p) => p.name === newName);
     const numberExists = persons.some((person) => person.number === newNumber);
 
-    if (nameExists) {
-      alert(`${newName} is already added to phonebook`);
-      return; // stop execution
+    if (existingPerson) {
+      if (existingPerson.number == newNumber) {
+        alert(`${newName} is already added to phonebook`);
+        return;
+      }
+
+      const confirmUpdate = window.confirm(
+        `${existingPerson.name} is already added to phonebook, replace old number with a new one?`,
+      );
+
+      if (!confirmUpdate) return;
+
+      const updatedPerson = { ...existingPerson, number: newNumber };
+
+      personService
+        .updatePerson(existingPerson.id, updatedPerson)
+        .then((returnedPerson) => {
+          setPersons(
+            persons.map((p) =>
+              p.id !== existingPerson.id ? p : returnedPerson,
+            ),
+          );
+        });
+
+      return;
     } else if (numberExists) {
       alert(`${newNumber} is already added to phonebook`);
       return; // stop execution
