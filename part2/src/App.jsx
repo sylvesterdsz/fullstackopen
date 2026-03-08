@@ -3,12 +3,14 @@ import personService from "./services/persons";
 import Filter from "./components/Filter";
 import PersonForm from "./components/PersonForm";
 import Person from "./components/Person";
+import Notification from "./components/Notification";
 
 const App = () => {
   const [persons, setPersons] = useState([]);
   const [newName, setNewName] = useState("");
   const [newNumber, setNewNumber] = useState("");
   const [searchName, setSearchName] = useState("");
+  const [message, setMessage] = useState("");
 
   const eventHook = () => {
     personService.getAllPersons().then((allPersons) => {
@@ -47,6 +49,11 @@ const App = () => {
           );
         });
 
+      setMessage(`${newName} number changed to ${newNumber}`);
+      setTimeout(() => {
+        setMessage("");
+      }, 5000);
+
       return;
     } else if (numberExists) {
       alert(`${newNumber} is already added to phonebook`);
@@ -60,6 +67,10 @@ const App = () => {
     personService.createPerson(personObj).then((createdPerson) => {
       setPersons(persons.concat(createdPerson));
     });
+    setMessage(`Added ${newName}`);
+    setTimeout(() => {
+      setMessage("");
+    }, 5000);
   };
 
   const handleNameChange = (event) => {
@@ -90,6 +101,7 @@ const App = () => {
   return (
     <div>
       <h2>Phonebook</h2>
+      <Notification message={message} />
       <Filter value={searchName} onChange={handleSearchChange} />
       <h2>add a new</h2>
       <PersonForm
