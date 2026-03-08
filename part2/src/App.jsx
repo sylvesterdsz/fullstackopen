@@ -11,6 +11,7 @@ const App = () => {
   const [newNumber, setNewNumber] = useState("");
   const [searchName, setSearchName] = useState("");
   const [message, setMessage] = useState("");
+  const [messageType, setMessageType] = useState("");
 
   const eventHook = () => {
     personService.getAllPersons().then((allPersons) => {
@@ -47,11 +48,24 @@ const App = () => {
               p.id !== existingPerson.id ? p : returnedPerson,
             ),
           );
+        })
+        .catch((error) => {
+          setMessage(
+            `Information of ${newName} has already been removed from the server`,
+          );
+          setMessageType("error");
+          setTimeout(() => {
+            setMessage("");
+            setMessageType("");
+          }, 5000);
+          setPersons(persons.filter((p) => p.id !== existingPerson.id));
         });
 
       setMessage(`${newName} number changed to ${newNumber}`);
+      setMessageType("success");
       setTimeout(() => {
         setMessage("");
+        setMessageType("");
       }, 5000);
 
       return;
@@ -68,8 +82,10 @@ const App = () => {
       setPersons(persons.concat(createdPerson));
     });
     setMessage(`Added ${newName}`);
+    setMessageType("success");
     setTimeout(() => {
       setMessage("");
+      setMessageType("");
     }, 5000);
   };
 
@@ -101,7 +117,7 @@ const App = () => {
   return (
     <div>
       <h2>Phonebook</h2>
-      <Notification message={message} />
+      <Notification message={message} messageType={messageType} />
       <Filter value={searchName} onChange={handleSearchChange} />
       <h2>add a new</h2>
       <PersonForm

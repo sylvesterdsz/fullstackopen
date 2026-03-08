@@ -36,19 +36,9 @@
       "number": "0468750275"
     },
     {
-      "id": "cd42",
-      "name": "qqq",
-      "number": "1112222"
-    },
-    {
       "id": "eae9",
       "name": "eeee",
       "number": "111111111"
-    },
-    {
-      "id": "221f",
-      "name": "ttt",
-      "number": "5454"
     },
     {
       "id": "83d6",
@@ -56,9 +46,9 @@
       "number": "66666"
     },
     {
-      "id": "865e",
-      "name": "uuuu",
-      "number": "88888"
+      "id": "e6fe",
+      "name": "qqq",
+      "number": "11122222"
     }
   ],
   "$schema": "./node_modules/json-server/schema.json"
