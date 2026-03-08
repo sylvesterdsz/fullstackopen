@@ -5,6 +5,7 @@ import Results from "./components/Results";
 const App = () => {
   const [search, setSearch] = useState("");
   const [countries, setCountries] = useState([]);
+  const [selectedCountry, setSelectedCountry] = useState(null);
 
   useEffect(() => {
     countryService.getAllCountries().then((data) => {
@@ -13,14 +14,20 @@ const App = () => {
   }, []);
 
   const handleCountryChange = (event) => {
-    return setSearch(event.target.value);
+    setSearch(event.target.value);
+    setSelectedCountry(null); // reset when typing
   };
 
   return (
     <div>
       find countries
       <input value={search} onChange={handleCountryChange}></input>
-      <Results countries={countries} search={search} />
+      <Results
+        countries={countries}
+        search={search}
+        selectedCountry={selectedCountry}
+        setSelectedCountry={setSelectedCountry}
+      />
     </div>
   );
 };
