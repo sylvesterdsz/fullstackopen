@@ -1,6 +1,8 @@
 const express = require('express')
 const app = express()
 
+app.use(express.json())
+
 let persons = [
     { 
       "id": "1",
@@ -51,6 +53,39 @@ app.delete("/api/persons/:id", (request,response) => {
     const id = request.params.id
     persons = persons.filter(p => p.id !== id)
     response.status(204).end()
+})
+
+app.post("/api/persons", (request,response) => {
+    const {name, number} = request.body
+    if(!name) {
+        return response.status(400).json({
+            error: "name missing"
+        })
+    } else if (!number) {
+        return response.status(400).json({
+            error: "number missing"
+        })
+    }
+
+    //check if name already exists
+    const nameExists = persons.some(p => p.name === name)
+
+    if(nameExists) {
+        return response.status(400).json({
+            error: "name must be unique"
+        })
+    }
+
+    const randomID = persons.length > 0
+    ? Math.max(...persons.map(n => Number(n.id))) 
+    : 0
+    const person = {
+        "id": String(randomID+1),
+        "name": name,
+        "number": number
+    }
+    persons = persons.concat(person)
+    response.json(person)
 })
 
 
