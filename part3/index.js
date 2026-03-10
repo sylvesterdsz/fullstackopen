@@ -55,6 +55,7 @@ app.delete("/api/persons/:id", (request,response) => {
     response.status(204).end()
 })
 
+//post with validation
 app.post("/api/persons", (request,response) => {
     const {name, number} = request.body
     if(!name) {
