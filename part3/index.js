@@ -35,8 +35,19 @@ app.get("/info", (request, response) => {
         <div>Phonebook has info for ${numberOfPersons} people</div>
         <div>${requestReceivedTime}</div>
     `)
-
 })
+
+app.get("/api/persons/:id", (request,response)=>{
+    const id = request.params.id
+    const person = persons.find(p => p.id ===id)
+    if(!person) {
+        response.statusMessage=`Person with id = ${id} was not found`
+        response.status(404).end()
+    }
+    response.json(person)
+    
+})
+
 
 const PORT = 3001
 app.listen(PORT, () => {
