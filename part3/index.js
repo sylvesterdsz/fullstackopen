@@ -1,9 +1,11 @@
 const express = require('express')
 const morgan = require('morgan')
+const cors = require('cors')
 const app = express()
 
 
 app.use(express.json())
+app.use(cors())
 
 morgan.token("body", (req) => {
   return JSON.stringify(req.body)
@@ -94,6 +96,33 @@ app.post("/api/persons", (request,response) => {
     }
     persons = persons.concat(person)
     response.json(person)
+})
+
+app.put("/api/persons/:id", (request,response) => {
+    const id = request.params.id
+    const { name, number } = request.body
+
+    if (!name || !number) {
+        return response.status(400).json({
+        error: "name or number missing"
+        })
+    }
+
+    const personExists = persons.some(p => p.id === id)
+
+    if (!personExists) {
+        return response.status(404).json({
+        error: "person not found"
+        })
+    }
+
+    const updatedPerson = {
+        id,
+        name,
+        number
+    }
+    persons = persons.map(person => person.id !== id ? person : updatedPerson)
+    response.json(updatedPerson)
 })
 
 const unknownEndpoint = (request, response) => {

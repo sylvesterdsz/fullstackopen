@@ -48,6 +48,12 @@ const App = () => {
               p.id !== existingPerson.id ? p : returnedPerson,
             ),
           );
+          setMessage(`${newName} number changed to ${newNumber}`);
+          setMessageType("success");
+          setTimeout(() => {
+            setMessage("");
+            setMessageType("");
+          }, 5000);
         })
         .catch((error) => {
           setMessage(
@@ -60,14 +66,6 @@ const App = () => {
           }, 5000);
           setPersons(persons.filter((p) => p.id !== existingPerson.id));
         });
-
-      setMessage(`${newName} number changed to ${newNumber}`);
-      setMessageType("success");
-      setTimeout(() => {
-        setMessage("");
-        setMessageType("");
-      }, 5000);
-
       return;
     } else if (numberExists) {
       alert(`${newNumber} is already added to phonebook`);
