@@ -76,15 +76,26 @@ const App = () => {
       name: newName,
       number: newNumber,
     };
-    personService.createPerson(personObj).then((createdPerson) => {
-      setPersons(persons.concat(createdPerson));
-    });
-    setMessage(`Added ${newName}`);
-    setMessageType("success");
-    setTimeout(() => {
-      setMessage("");
-      setMessageType("");
-    }, 5000);
+    personService
+      .createPerson(personObj)
+      .then((createdPerson) => {
+        setPersons(persons.concat(createdPerson));
+        setMessage(`Added ${newName}`);
+        setMessageType("success");
+        setTimeout(() => {
+          setMessage("");
+          setMessageType("");
+        }, 5000);
+      })
+      .catch((error) => {
+        // Show validation error returned from backend
+        setMessage(error.response?.data?.error || "Failed to add person");
+        setMessageType("error");
+        setTimeout(() => {
+          setMessage("");
+          setMessageType("");
+        }, 5000);
+      });
   };
 
   const handleNameChange = (event) => {
