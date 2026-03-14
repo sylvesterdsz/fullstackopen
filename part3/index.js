@@ -138,3 +138,6 @@ app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`)
 })
 
+//sylvesterd_db_user
+//x0CfGGKTG6WgSx89
+//mongodb+srv://sylvesterd_db_user:x0CfGGKTG6WgSx89@cluster0.0kas2ll.mongodb.net/?appName=Cluster0
