@@ -228,3 +228,98 @@ describe('most blogs', () => {
     assert.ok(['Sylvester Dsouza', 'Noah Dsouza'].includes(mostBlogs.author))
   })
 })
+
+describe('most likes', () => {
+  test('if returned null when blog list is empty', () => {
+    const blogs = []
+    assert.strictEqual(listHelper.mostLikes(blogs), null)
+  })
+
+  test('if the list had one blog return the 1 blog author and likes', () => {
+    const blogs = [
+      {
+        title: 'Book title 2',
+        author: 'Sylvester Dsouza',
+        url: 'http://localhost',
+        likes: 6,
+      },
+    ]
+    const mostLikes = listHelper.mostLikes(blogs)
+    assert.deepStrictEqual(mostLikes, { author: 'Sylvester Dsouza', likes: 6 })
+  })
+
+  test('if the list had multiple blogs return the author and most sum total likes', () => {
+    const blogs = [
+      {
+        title: 'Book title 2',
+        author: 'Sylvester Dsouza',
+        url: 'http://localhost',
+        likes: 6,
+      },
+      {
+        title: 'Book title 3',
+        author: 'Vinita Dsouza',
+        url: 'http://localhost',
+        likes: 2,
+      },
+      {
+        title: 'Book title 4',
+        author: 'Noah Dsouza',
+        url: 'http://localhost',
+        likes: 1,
+      },
+      {
+        title: 'Book title 5',
+        author: 'Noah Dsouza',
+        url: 'http://localhost',
+        likes: 2,
+      },
+      {
+        title: 'Book title 6',
+        author: 'Sylvester Dsouza',
+        url: 'http://localhost',
+        likes: 6,
+      },
+    ]
+    const mostLikes = listHelper.mostLikes(blogs)
+    assert.deepStrictEqual(mostLikes, { author: 'Sylvester Dsouza', likes: 12 })
+  })
+
+  test('returns one of the authors with highest likes when tied', () => {
+    const blogs = [
+      {
+        title: 'Book title 2',
+        author: 'Sylvester Dsouza',
+        url: 'http://localhost',
+        likes: 6,
+      },
+      {
+        title: 'Book title 3',
+        author: 'Vinita Dsouza',
+        url: 'http://localhost',
+        likes: 2,
+      },
+      {
+        title: 'Book title 4',
+        author: 'Noah Dsouza',
+        url: 'http://localhost',
+        likes: 6,
+      },
+      {
+        title: 'Book title 5',
+        author: 'Noah Dsouza',
+        url: 'http://localhost',
+        likes: 6,
+      },
+      {
+        title: 'Book title 6',
+        author: 'Sylvester Dsouza',
+        url: 'http://localhost',
+        likes: 6,
+      },
+    ]
+    const mostLikes = listHelper.mostLikes(blogs)
+    assert.strictEqual(mostLikes.likes, 12)
+    assert.ok(['Sylvester Dsouza', 'Noah Dsouza'].includes(mostLikes.author))
+  })
+})
