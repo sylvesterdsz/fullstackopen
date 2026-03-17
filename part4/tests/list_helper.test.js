@@ -138,3 +138,93 @@ describe('favorite blog', () => {
     assert.deepStrictEqual(favoriteBlog, blogs[1])
   })
 })
+
+describe('most blogs', () => {
+  test('if returned null when blog list is empty', () => {
+    const blogs = []
+    assert.strictEqual(listHelper.mostBlogs(blogs), null)
+  })
+
+  test('returns author with 1 blog when list has 1 blog', () => {
+    const blogs = [
+      {
+        title: 'Book title 2',
+        author: 'Sylvester Dsouza',
+        url: 'http://localhost',
+        likes: 6,
+      },
+    ]
+    const mostBlogs = listHelper.mostBlogs(blogs)
+    assert.deepStrictEqual(mostBlogs, { author: 'Sylvester Dsouza', blogs: 1 })
+  })
+
+  test('returns author with the most blogs ', () => {
+    const blogs = [
+      {
+        title: 'Book title 1',
+        author: 'Vinita Dsouza',
+        url: 'http://localhost',
+        likes: 5,
+      },
+      {
+        title: 'Book title 2',
+        author: 'Sylvester Dsouza',
+        url: 'http://localhost',
+        likes: 6,
+      },
+      {
+        title: 'Book title 3',
+        author: 'Sylvester Dsouza',
+        url: 'http://localhost',
+        likes: 2,
+      },
+      {
+        title: 'Book title 4',
+        author: 'Noah Dsouza',
+        url: 'http://localhost',
+        likes: 1,
+      },
+      {
+        title: 'Book title 5',
+        author: 'Sylvester Dsouza',
+        url: 'http://localhost',
+        likes: 2,
+      },
+    ]
+    const mostBlogs = listHelper.mostBlogs(blogs)
+    assert.deepStrictEqual(mostBlogs, { author: 'Sylvester Dsouza', blogs: 3 })
+  })
+
+  test('returns one of the authors with highest blog count when tied', () => {
+    const blogs = [
+      {
+        title: 'Book title 2',
+        author: 'Sylvester Dsouza',
+        url: 'http://localhost',
+        likes: 6,
+      },
+      {
+        title: 'Book title 3',
+        author: 'Sylvester Dsouza',
+        url: 'http://localhost',
+        likes: 2,
+      },
+      {
+        title: 'Book title 4',
+        author: 'Noah Dsouza',
+        url: 'http://localhost',
+        likes: 1,
+      },
+      {
+        title: 'Book title 5',
+        author: 'Noah Dsouza',
+        url: 'http://localhost',
+        likes: 2,
+      },
+    ]
+    const mostBlogs = listHelper.mostBlogs(blogs)
+
+    assert.strictEqual(mostBlogs.blogs, 2)
+    assert.ok(['Sylvester Dsouza', 'Noah Dsouza'].includes(mostBlogs.author))
+  })
+})
